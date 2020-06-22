@@ -1,11 +1,9 @@
 # keyboard_visibility
 
-Notification service for soft-keyboard visibility
+通知键盘隐藏显示
 
-# Usage
-
-Add the dependency to your pubspec.yaml file in the root folder of your project.
-Look for the 'dependencies:'-line and add the following line after this line: 
+# 依赖
+依赖方式
 ```
 keyboard_visibility: any
 ```
@@ -14,35 +12,37 @@ or
 keyboard_visibility: ^[CURRENT VERSION NUMBER]
 ```
 
-(Please note that the two spaces in the beginning of the line are important)
-Run 'flutter packages get' in your root folder after saving the pubspec.yaml file.
-For additional documentation about the pubspec.yaml file please refer to the official flutter documentation
-[using packages](http://flutter.io/docs/development/packages-and-plugins/using-packages)
+or 代码拉到本地放到你的项目的同一个父目录下
 
+```
+ keyboard_visibility:
+    path: ../flutter_keyboard_visibility
+```
 
-Import `package:keyboard_visibility/keyboard_visibility.dart`, instantiate `KeyboardVisibilityNotification`
-and use the Android and iOS notifications to get events about changes of the visibility of the soft-keyboard
-
-The best practice to call the addNewListener function is inside the initState function as in the following example:
+# 使用
+在initState中添加监听销毁通知
 
 ```dart
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 
-@protected
-void initState() {
-  super.initState();
 
-  KeyboardVisibilityNotification().addNewListener(
-    onChange: (bool visible) {
-      print(visible);
-    },
-  );
-}
+ int subscribeId;
+
+ @protected
+ void initState() {
+   super.initState();
+   subscribeId = KeyboardVisibilityNotification().addNewListener(
+     onChange: (bool visible) {
+       print(visible);
+     },
+   );
+ }
+
+ //及时移除防止内存泄漏问题 "A LoginInputCodeViewModel was used after being disposed."
+ @override
+  void dispose() {
+    KeyboardVisibilityNotification().removeListener(subscribeId);
+    super.dispose();
+  }
 ```
 
-Also check out the example included with the package
-
-## Getting Started
-
-For help getting started with Flutter, view the following online
-[documentation](http://flutter.io/).
