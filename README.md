@@ -3,21 +3,20 @@
 通知键盘隐藏显示
 
 # 依赖
-依赖方式
-```
-keyboard_visibility: any
-```
-or 
-```
-keyboard_visibility: ^[CURRENT VERSION NUMBER]
-```
-
-or 代码拉到本地放到你的项目的同一个父目录下
+代码拉到本地放到你的项目的同一个父目录下
 
 ```
  keyboard_visibility:
     path: ../flutter_keyboard_visibility
 ```
+或者直接依赖修改过后的我的git
+```
+ keyboard_visibility:
+    git:
+      url: git@github.com:Darksiderlyd/flutter_keyboard_visibility.git
+```
+
+# 修改了compileSdkVersion 27带来的release打包问题 修改为28
 
 # 使用
 在initState中添加监听销毁通知
